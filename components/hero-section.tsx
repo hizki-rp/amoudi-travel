@@ -4,7 +4,7 @@ import Link from "next/link"
 interface HeroSectionProps {
   title: string
   subtitle: string
-  imageUrl: string
+  imageUrl: 0
   buttonText?: string
   buttonLink?: string
 }

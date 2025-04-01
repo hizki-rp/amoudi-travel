@@ -38,51 +38,90 @@ export default function ToursPage() {
           <div className="grid gap-8 md:grid-cols-3">
             {[
               {
-                title: "Dubai City Tour",
-                description:
-                  "Explore the magnificent city of Dubai, from the towering Burj Khalifa to the historic Dubai Creek.",
-                duration: "1 Day",
-                price: "$99",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Entoto",
+                  image: "/entoto.jpg", // Place in public folder
+                  description: "A historic mountain overlooking Addis Ababa, known for its panoramic views, eucalyptus forests, and ancient churches.",
               },
               {
-                title: "Desert Safari Adventure",
-                description:
-                  "Experience the thrill of dune bashing, camel riding, and a traditional Bedouin dinner under the stars.",
-                duration: "Half Day",
-                price: "$75",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Al Nejashi",
+                  image: "/al-nejashi.jpg", // Place in public folder
+                  description: "An ancient Islamic site in Ethiopia, home to the Nejashi Mosque, one of the oldest mosques in Africa.",
               },
               {
-                title: "Abu Dhabi Excursion",
-                description:
-                  "Visit the capital city of UAE and explore the Sheikh Zayed Grand Mosque, Ferrari World, and more.",
-                duration: "Full Day",
-                price: "$120",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Chebera Churchura",
+                  image: "/churchura.jpg", // Place in public folder
+                  description: "A tranquil spot known for its scenic landscapes and rich biodiversity, perfect for nature enthusiasts.",
+      
+      
               },
               {
-                title: "Musandam Dibba Cruise",
-                description:
-                  "Sail through the fjords of Musandam on a traditional dhow cruise with swimming and snorkeling.",
-                duration: "Full Day",
-                price: "$130",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Halala Kella",
+                  image: "/halala.jpeg", // Place in public folder
+                  description: "A serene location with cultural significance, featuring natural beauty and historical landmarks unique to the region.",
               },
               {
-                title: "Hatta Mountain Tour",
-                description:
-                  "Discover the mountainous region of Hatta with its heritage village, dam, and natural pools.",
-                duration: "Full Day",
-                price: "$85",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Wenchi",
+                  image: "/wenchi.jpg", // Place in public folder
+                  description: "A serene location with cultural significance, featuring natural beauty and historical landmarks unique to the region.",
               },
               {
-                title: "Dubai Helicopter Tour",
-                description: "Get a bird's eye view of Dubai's iconic landmarks with an exhilarating helicopter ride.",
-                duration: "25 Minutes",
-                price: "$250",
-                image: "/placeholder.svg?height=300&width=400",
+                  title: "Lalibela",
+                  image: "/lalibela.jpg", // Place in public folder
+                  description: "Known for its rock-hewn churches, a UNESCO World Heritage Site.",
+              },
+              {
+                  title: "Simien Mountains",
+                  image: "/semien.jpg", // Place in public folder
+                  description:
+                      "Dramatic peaks, unique wildlife like the Gelada baboon, and breathtaking views.",
+              },
+              {
+                  title: "Lake Tana",
+                  image: "/tana.jpg", // Place in public folder
+                  description:
+                      "Ethiopia's largest lake, home to ancient monasteries and stunning scenery.",
+              },
+              {
+                  title: "Axum",
+                  image: "/axum.jpg", // Place in public folder
+                  description:
+                      "An ancient city with obelisks, historical relics, and a rich cultural heritage.",
+              },
+              {
+                  title: "Nech Sar National Park",
+                  image: "/nechsar.jpg", // Place in public folder
+                  description:
+                      "A diverse ecosystem with wildlife and stunning views of lakes Abaya and Chamo.",
+              },
+              {
+                  title: "Mago National Park",
+                  image: "/mago.jpg", // Place in public folder
+                  description:
+                      "Home to the Mursi tribe and abundant wildlife, offering a unique cultural experience.",
+              },
+              {
+                  title: "Danakil Depression",
+                  image: "/danakil.jpg", // Place in public folder
+                  description:
+                      "One of the hottest places on Earth, featuring salt flats, sulfur springs, and volcanoes.",
+              },
+              {
+                   title: "Omo Valley",
+                  image: "/omo.jpg", // Place in public folder
+                  description:
+                      "A region rich in cultural diversity, home to many indigenous tribes.",
+              },
+              {
+           
+                    title : "Bale Sof Umer",
+                  image: "/sofumer.jpeg", // Place in public folder
+                  description:
+                      "A magnificent limestone cave system with intricate formations, located in the Bale Mountains region.",
+              },
+              {
+                  title: "Aba Jifar",
+                  image: "/aba-jifar.jpg", // Place in public folder
+                  description: "A historically significant site associated with King Aba Jifar, featuring remnants of ancient Gibe culture and heritage.",
               },
             ].map((tour, index) => (
               <Card key={index} className="overflow-hidden">

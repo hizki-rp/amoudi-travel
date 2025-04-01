@@ -42,9 +42,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold">Contact</h3>
             <ul className="mt-2 space-y-2">
-              <li className="text-sm text-gray-600">123 Business Avenue</li>
-              <li className="text-sm text-gray-600">Dubai, UAE</li>
-              <li className="text-sm text-gray-600">+971 4 123 4567</li>
+              <li className="text-sm text-gray-600">Jemo1, Sun moon star mall</li>
+              <li className="text-sm text-gray-600">Addis Ababa</li>
+              <li className="text-sm text-gray-600">+251 9 11 04 3323</li>
               <li className="text-sm text-gray-600">ayatainternational@gmail.com</li>
             </ul>
           </div>
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-6">
           <p className="text-center text-xs text-gray-600">
-            © {new Date().getFullYear()} Amoudi Business Group. All rights reserved.
+            © {new Date().getFullYear()} Amoudi Tour and Travel. All rights reserved.
           </p>
         </div>
       </div>

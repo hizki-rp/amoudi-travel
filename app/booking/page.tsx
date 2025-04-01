@@ -28,8 +28,8 @@ const popularDestinations = [
   "Sydney",
 ]
 
-export default function BookingPage() {
-  const [state, handleSubmit] = useForm("mjkyeagk")
+export default function page() {
+  const [state, handleSubmit] = useForm("mrbpyzgp") // Updated Formspree form ID
   const [bookingType, setBookingType] = useState("flight")
   const [tripType, setTripType] = useState("roundTrip")
   const [departureDate, setDepartureDate] = useState<Date>()
@@ -38,6 +38,21 @@ export default function BookingPage() {
   const [destination, setDestination] = useState("")
   const [passengers, setPassengers] = useState("1")
   const [cabinClass, setCabinClass] = useState("economy")
+  const [hotelCheckInDate, setHotelCheckInDate] = useState<Date>()
+  const [hotelCheckOutDate, setHotelCheckOutDate] = useState<Date>()
+  const [carPickupDate, setCarPickupDate] = useState<Date>()
+  const [carDropoffDate, setCarDropoffDate] = useState<Date>()
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Add form type to form data
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    formData.append("bookingType", bookingType)
+    
+    // Submit to Formspree
+    handleSubmit(e)
+  }
 
   return (
     <div>
@@ -97,7 +112,7 @@ export default function BookingPage() {
                       </div>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleFormSubmit} className="space-y-6">
                       <input type="hidden" name="form-type" value="flight-booking" />
 
                       <RadioGroup
@@ -135,6 +150,7 @@ export default function BookingPage() {
                               ))}
                             </SelectContent>
                           </Select>
+                          <ValidationError prefix="Origin" field="origin" errors={state.errors} />
                         </div>
                         <div>
                           <Label htmlFor="destination">To</Label>
@@ -150,6 +166,7 @@ export default function BookingPage() {
                               ))}
                             </SelectContent>
                           </Select>
+                          <ValidationError prefix="Destination" field="destination" errors={state.errors} />
                         </div>
                       </div>
 
@@ -188,6 +205,7 @@ export default function BookingPage() {
                             name="departureDate"
                             value={departureDate ? departureDate.toISOString() : ""}
                           />
+                          <ValidationError prefix="Departure Date" field="departureDate" errors={state.errors} />
                         </div>
 
                         {tripType === "roundTrip" && (
@@ -225,6 +243,7 @@ export default function BookingPage() {
                               name="returnDate"
                               value={returnDate ? returnDate.toISOString() : ""}
                             />
+                            <ValidationError prefix="Return Date" field="returnDate" errors={state.errors} />
                           </div>
                         )}
                       </div>
@@ -244,6 +263,7 @@ export default function BookingPage() {
                               ))}
                             </SelectContent>
                           </Select>
+                          <ValidationError prefix="Passengers" field="passengers" errors={state.errors} />
                         </div>
                         <div>
                           <Label htmlFor="cabin-class">Cabin Class</Label>
@@ -258,6 +278,7 @@ export default function BookingPage() {
                               <SelectItem value="first">First Class</SelectItem>
                             </SelectContent>
                           </Select>
+                          <ValidationError prefix="Cabin Class" field="cabinClass" errors={state.errors} />
                         </div>
                       </div>
 
@@ -276,6 +297,7 @@ export default function BookingPage() {
                         <div>
                           <Label htmlFor="contact-phone">Contact Phone</Label>
                           <Input id="contact-phone" name="phone" placeholder="+1 (555) 000-0000" />
+                          <ValidationError prefix="Phone" field="phone" errors={state.errors} />
                         </div>
                       </div>
 
@@ -287,200 +309,331 @@ export default function BookingPage() {
                 </TabsContent>
 
                 <TabsContent value="hotel" className="mt-6">
-                  <div className="space-y-6">
-                    <div>
-                      <Label htmlFor="hotel-destination">Destination</Label>
-                      <Select>
-                        <SelectTrigger id="hotel-destination" className="w-full">
-                          <SelectValue placeholder="Select destination" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {popularDestinations.map((city) => (
-                            <SelectItem key={city} value={city}>
-                              {city}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div>
-                        <Label htmlFor="check-in">Check-in Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                              id="check-in"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              Select date
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar mode="single" initialFocus />
-                          </PopoverContent>
-                        </Popover>
+                  {state.succeeded ? (
+                    <div className="rounded-md bg-green-50 p-8 text-center">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                        <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
-                      <div>
-                        <Label htmlFor="check-out">Check-out Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                              id="check-out"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              Select date
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar mode="single" initialFocus />
-                          </PopoverContent>
-                        </Popover>
+                      <h3 className="mt-3 text-xl font-medium text-green-800">Hotel Booking Request Received!</h3>
+                      <p className="mt-2 text-green-700">
+                        Thank you for your hotel booking request. We'll contact you shortly to confirm your reservation.
+                      </p>
+                      <div className="mt-6">
+                        <Button onClick={() => window.location.reload()} variant="outline">
+                          Make another booking
+                        </Button>
                       </div>
                     </div>
+                  ) : (
+                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                      <input type="hidden" name="form-type" value="hotel-booking" />
 
-                    <div className="grid gap-4 md:grid-cols-2">
                       <div>
-                        <Label htmlFor="rooms">Rooms</Label>
-                        <Select defaultValue="1">
-                          <SelectTrigger id="rooms" className="w-full">
-                            <SelectValue placeholder="Select number of rooms" />
+                        <Label htmlFor="hotel-destination">Destination</Label>
+                        <Select name="destination" required>
+                          <SelectTrigger id="hotel-destination" className="w-full">
+                            <SelectValue placeholder="Select destination" />
                           </SelectTrigger>
                           <SelectContent>
-                            {[1, 2, 3, 4, 5].map((num) => (
-                              <SelectItem key={num} value={num.toString()}>
-                                {num} {num === 1 ? "Room" : "Rooms"}
+                            {popularDestinations.map((city) => (
+                              <SelectItem key={city} value={city}>
+                                {city}
                               </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
+                        <ValidationError prefix="Destination" field="destination" errors={state.errors} />
                       </div>
-                      <div>
-                        <Label htmlFor="hotel-guests">Guests</Label>
-                        <Select defaultValue="2">
-                          <SelectTrigger id="hotel-guests" className="w-full">
-                            <SelectValue placeholder="Select number of guests" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                              <SelectItem key={num} value={num.toString()}>
-                                {num} {num === 1 ? "Guest" : "Guests"}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
 
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div>
-                        <Label htmlFor="hotel-email">Contact Email</Label>
-                        <Input id="hotel-email" type="email" placeholder="your.email@example.com" required />
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="check-in">Check-in Date</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start text-left font-normal"
+                                id="check-in"
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {hotelCheckInDate ? format(hotelCheckInDate, "PPP") : "Select date"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={hotelCheckInDate}
+                                onSelect={(date) => {
+                                  setHotelCheckInDate(date)
+                                  document
+                                    .getElementById("check-in-date-input")
+                                    ?.setAttribute("value", date ? date.toISOString() : "")
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <input
+                            type="hidden"
+                            id="check-in-date-input"
+                            name="checkInDate"
+                            value={hotelCheckInDate ? hotelCheckInDate.toISOString() : ""}
+                          />
+                          <ValidationError prefix="Check-in Date" field="checkInDate" errors={state.errors} />
+                        </div>
+                        <div>
+                          <Label htmlFor="check-out">Check-out Date</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start text-left font-normal"
+                                id="check-out"
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {hotelCheckOutDate ? format(hotelCheckOutDate, "PPP") : "Select date"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={hotelCheckOutDate}
+                                onSelect={(date) => {
+                                  setHotelCheckOutDate(date)
+                                  document
+                                    .getElementById("check-out-date-input")
+                                    ?.setAttribute("value", date ? date.toISOString() : "")
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <input
+                            type="hidden"
+                            id="check-out-date-input"
+                            name="checkOutDate"
+                            value={hotelCheckOutDate ? hotelCheckOutDate.toISOString() : ""}
+                          />
+                          <ValidationError prefix="Check-out Date" field="checkOutDate" errors={state.errors} />
+                        </div>
                       </div>
-                      <div>
-                        <Label htmlFor="hotel-phone">Contact Phone</Label>
-                        <Input id="hotel-phone" placeholder="+1 (555) 000-0000" />
-                      </div>
-                    </div>
 
-                    <Button className="w-full" size="lg">
-                      Book Now
-                    </Button>
-                  </div>
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="rooms">Rooms</Label>
+                          <Select name="rooms" defaultValue="1">
+                            <SelectTrigger id="rooms" className="w-full">
+                              <SelectValue placeholder="Select number of rooms" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {[1, 2, 3, 4, 5].map((num) => (
+                                <SelectItem key={num} value={num.toString()}>
+                                  {num} {num === 1 ? "Room" : "Rooms"}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <ValidationError prefix="Rooms" field="rooms" errors={state.errors} />
+                        </div>
+                        <div>
+                          <Label htmlFor="hotel-guests">Guests</Label>
+                          <Select name="guests" defaultValue="2">
+                            <SelectTrigger id="hotel-guests" className="w-full">
+                              <SelectValue placeholder="Select number of guests" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                                <SelectItem key={num} value={num.toString()}>
+                                  {num} {num === 1 ? "Guest" : "Guests"}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <ValidationError prefix="Guests" field="guests" errors={state.errors} />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="hotel-email">Contact Email</Label>
+                          <Input
+                            id="hotel-email"
+                            name="email"
+                            type="email"
+                            placeholder="your.email@example.com"
+                            required
+                          />
+                          <ValidationError prefix="Email" field="email" errors={state.errors} />
+                        </div>
+                        <div>
+                          <Label htmlFor="hotel-phone">Contact Phone</Label>
+                          <Input id="hotel-phone" name="phone" placeholder="+1 (555) 000-0000" />
+                          <ValidationError prefix="Phone" field="phone" errors={state.errors} />
+                        </div>
+                      </div>
+
+                      <Button type="submit" className="w-full" size="lg" disabled={state.submitting}>
+                        {state.submitting ? "Processing..." : "Book Now"}
+                      </Button>
+                    </form>
+                  )}
                 </TabsContent>
 
                 <TabsContent value="car" className="mt-6">
-                  <div className="space-y-6">
-                    <div>
-                      <Label htmlFor="pickup-location">Pickup Location</Label>
-                      <Select>
-                        <SelectTrigger id="pickup-location" className="w-full">
-                          <SelectValue placeholder="Select pickup location" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {popularDestinations.map((city) => (
-                            <SelectItem key={city} value={city}>
-                              {city}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div>
-                        <Label htmlFor="pickup-date">Pickup Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                              id="pickup-date"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              Select date
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar mode="single" initialFocus />
-                          </PopoverContent>
-                        </Popover>
+                  {state.succeeded ? (
+                    <div className="rounded-md bg-green-50 p-8 text-center">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                        <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
-                      <div>
-                        <Label htmlFor="dropoff-date">Drop-off Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                              id="dropoff-date"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              Select date
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar mode="single" initialFocus />
-                          </PopoverContent>
-                        </Popover>
+                      <h3 className="mt-3 text-xl font-medium text-green-800">Car Rental Request Received!</h3>
+                      <p className="mt-2 text-green-700">
+                        Thank you for your car rental request. We'll contact you shortly to confirm your reservation.
+                      </p>
+                      <div className="mt-6">
+                        <Button onClick={() => window.location.reload()} variant="outline">
+                          Make another booking
+                        </Button>
                       </div>
                     </div>
+                  ) : (
+                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                      <input type="hidden" name="form-type" value="car-rental" />
 
-                    <div>
-                      <Label htmlFor="car-type">Car Type</Label>
-                      <Select defaultValue="economy">
-                        <SelectTrigger id="car-type" className="w-full">
-                          <SelectValue placeholder="Select car type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="economy">Economy</SelectItem>
-                          <SelectItem value="compact">Compact</SelectItem>
-                          <SelectItem value="midsize">Midsize</SelectItem>
-                          <SelectItem value="suv">SUV</SelectItem>
-                          <SelectItem value="luxury">Luxury</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-4 md:grid-cols-2">
                       <div>
-                        <Label htmlFor="car-email">Contact Email</Label>
-                        <Input id="car-email" type="email" placeholder="your.email@example.com" required />
+                        <Label htmlFor="pickup-location">Pickup Location</Label>
+                        <Select name="pickupLocation" required>
+                          <SelectTrigger id="pickup-location" className="w-full">
+                            <SelectValue placeholder="Select pickup location" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {popularDestinations.map((city) => (
+                              <SelectItem key={city} value={city}>
+                                {city}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <ValidationError prefix="Pickup Location" field="pickupLocation" errors={state.errors} />
                       </div>
-                      <div>
-                        <Label htmlFor="car-phone">Contact Phone</Label>
-                        <Input id="car-phone" placeholder="+1 (555) 000-0000" />
-                      </div>
-                    </div>
 
-                    <Button className="w-full" size="lg">
-                      Book Now
-                    </Button>
-                  </div>
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="pickup-date">Pickup Date</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start text-left font-normal"
+                                id="pickup-date"
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {carPickupDate ? format(carPickupDate, "PPP") : "Select date"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={carPickupDate}
+                                onSelect={(date) => {
+                                  setCarPickupDate(date)
+                                  document
+                                    .getElementById("pickup-date-input")
+                                    ?.setAttribute("value", date ? date.toISOString() : "")
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <input
+                            type="hidden"
+                            id="pickup-date-input"
+                            name="pickupDate"
+                            value={carPickupDate ? carPickupDate.toISOString() : ""}
+                          />
+                          <ValidationError prefix="Pickup Date" field="pickupDate" errors={state.errors} />
+                        </div>
+                        <div>
+                          <Label htmlFor="dropoff-date">Drop-off Date</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start text-left font-normal"
+                                id="dropoff-date"
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {carDropoffDate ? format(carDropoffDate, "PPP") : "Select date"}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={carDropoffDate}
+                                onSelect={(date) => {
+                                  setCarDropoffDate(date)
+                                  document
+                                    .getElementById("dropoff-date-input")
+                                    ?.setAttribute("value", date ? date.toISOString() : "")
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <input
+                            type="hidden"
+                            id="dropoff-date-input"
+                            name="dropoffDate"
+                            value={carDropoffDate ? carDropoffDate.toISOString() : ""}
+                          />
+                          <ValidationError prefix="Drop-off Date" field="dropoffDate" errors={state.errors} />
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="car-type">Car Type</Label>
+                        <Select name="carType" defaultValue="economy">
+                          <SelectTrigger id="car-type" className="w-full">
+                            <SelectValue placeholder="Select car type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="economy">Economy</SelectItem>
+                            <SelectItem value="compact">Compact</SelectItem>
+                            <SelectItem value="midsize">Midsize</SelectItem>
+                            <SelectItem value="suv">SUV</SelectItem>
+                            <SelectItem value="luxury">Luxury</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <ValidationError prefix="Car Type" field="carType" errors={state.errors} />
+                      </div>
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="car-email">Contact Email</Label>
+                          <Input
+                            id="car-email"
+                            name="email"
+                            type="email"
+                            placeholder="your.email@example.com"
+                            required
+                          />
+                          <ValidationError prefix="Email" field="email" errors={state.errors} />
+                        </div>
+                        <div>
+                          <Label htmlFor="car-phone">Contact Phone</Label>
+                          <Input id="car-phone" name="phone" placeholder="+1 (555) 000-0000" />
+                          <ValidationError prefix="Phone" field="phone" errors={state.errors} />
+                        </div>
+                      </div>
+
+                      <Button type="submit" className="w-full" size="lg" disabled={state.submitting}>
+                        {state.submitting ? "Processing..." : "Book Now"}
+                      </Button>
+                    </form>
+                  )}
                 </TabsContent>
               </Tabs>
             </CardContent>
@@ -552,4 +705,3 @@ export default function BookingPage() {
     </div>
   )
 }
-

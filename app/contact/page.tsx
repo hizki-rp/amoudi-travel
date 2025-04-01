@@ -7,7 +7,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react"
 import { useForm, ValidationError } from "@formspree/react"
 
 export default function ContactPage() {
-  const [state, handleSubmit] = useForm("xkgjvqge")
+  const [state, handleSubmit] = useForm("mwplrekv") // Updated Formspree form ID
 
   return (
     <div>
@@ -62,12 +62,14 @@ export default function ContactPage() {
                         First Name
                       </label>
                       <Input id="firstName" name="firstName" placeholder="John" required />
+                      <ValidationError prefix="First Name" field="firstName" errors={state.errors} />
                     </div>
                     <div>
                       <label htmlFor="lastName" className="mb-2 block text-sm font-medium">
                         Last Name
                       </label>
                       <Input id="lastName" name="lastName" placeholder="Doe" required />
+                      <ValidationError prefix="Last Name" field="lastName" errors={state.errors} />
                     </div>
                   </div>
 
@@ -84,6 +86,7 @@ export default function ContactPage() {
                       Phone Number
                     </label>
                     <Input id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+                    <ValidationError prefix="Phone" field="phone" errors={state.errors} />
                   </div>
 
                   <div>
@@ -91,6 +94,7 @@ export default function ContactPage() {
                       Subject
                     </label>
                     <Input id="subject" name="subject" placeholder="How can we help you?" required />
+                    <ValidationError prefix="Subject" field="subject" errors={state.errors} />
                   </div>
 
                   <div>
@@ -127,9 +131,9 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Our Address</h3>
                       <p className="text-gray-600">
-                        123 Business Avenue, Downtown
+                        Jemo1, Sun Moon Star Mall, 3rd Floor
                         <br />
-                        Dubai, United Arab Emirates
+                        Addis Ababa, Ethiopia.
                       </p>
                     </div>
                   </CardContent>
@@ -141,9 +145,9 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Phone</h3>
                       <p className="text-gray-600">
-                        +971 4 123 4567
+                        +251 91 104 3323
                         <br />
-                        +971 50 987 6543
+                        +251 99 040 9000
                       </p>
                     </div>
                   </CardContent>
@@ -155,9 +159,9 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Email</h3>
                       <p className="text-gray-600">
-                        ayatainternational@gmail.com
+                        info@amoudibusinessgroup.com
                         <br />
-                        support@amoudibusiness.com
+                        support@amoudibusinessgroup.com
                       </p>
                     </div>
                   </CardContent>
@@ -171,7 +175,7 @@ export default function ContactPage() {
                       <p className="text-gray-600">
                         Monday - Friday: 9:00 AM - 6:00 PM
                         <br />
-                        Saturday: 10:00 AM - 2:00 PM
+                        Saturday: 9:30 AM - 6:00 PM
                         <br />
                         Sunday: Closed
                       </p>
@@ -180,11 +184,16 @@ export default function ContactPage() {
                 </Card>
               </div>
 
-              <div className="mt-8 h-64 w-full overflow-hidden rounded-lg bg-gray-200">
-                {/* Map would go here */}
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-gray-600">Interactive Map</p>
-                </div>
+              <div className="mt-8 h-64 w-full overflow-hidden rounded-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5384886447946!2d38.7584!3d9.0092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMDAnMzMuMSJOIDM4wrA0NSczMC4yIkU!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -193,4 +202,3 @@ export default function ContactPage() {
     </div>
   )
 }
-

@@ -13,7 +13,7 @@ export default function HomePage() {
               "url('https://sjc.microlink.io/POwgbci4q_vjCvZAIzUPJPs93ydQkG0BEYZs2bCSsdbsTmjn4GcRGoksOVFzlMKh8bScsdgVMBeVJ40a1PCetg.jpeg')",
           }}
         />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0" />
         <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-4 text-center text-white sm:px-6">
           <h1 className="mb-4 text-5xl font-bold">Travel with Confidence</h1>
           <p className="mb-8 max-w-2xl text-xl">Experience premium travel services with Amoudi Business Group</p>
@@ -26,7 +26,7 @@ export default function HomePage() {
       </div>
 
       {/* Services Section */}
-      <section className="py-20">
+      <section className="">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold">Our Services</h2>
@@ -40,17 +40,20 @@ export default function HomePage() {
               {
                 title: "Flight Bookings",
                 description: "Book flights to destinations worldwide with premium airlines",
-                image: "/placeholder.svg?height=300&width=400",
+               // image: "/placeholder.svg?height=300&width=400",
+               image: "/flight-booking.jpg",
               },
               {
                 title: "Hotel Reservations",
                 description: "Find the perfect accommodation for your stay",
-                image: "/placeholder.svg?height=300&width=400",
+                //image: "/placeholder.svg?height=300&width=400",
+                image: "/hotel-reservation.jpg",
               },
               {
-                title: "Tour Packages",
-                description: "Explore exciting destinations with our curated tour packages",
-                image: "/placeholder.svg?height=300&width=400",
+                title: "Visa Consulting",
+                description: "Explore exciting destinations with our curated visa consulting service.",
+               // image: "/placeholder.svg?height=300&width=400",
+               image: "/visa-consulting.jpg",
               },
             ].map((service, index) => (
               <div key={index} className="group overflow-hidden rounded-lg shadow-md transition-all hover:shadow-lg">
@@ -84,10 +87,10 @@ export default function HomePage() {
 
           <div className="grid gap-6 md:grid-cols-4">
             {[
-              { name: "Dubai", image: "/placeholder.svg?height=300&width=300" },
-              { name: "London", image: "/placeholder.svg?height=300&width=300" },
-              { name: "New York", image: "/placeholder.svg?height=300&width=300" },
-              { name: "Tokyo", image: "/placeholder.svg?height=300&width=300" },
+              { name: "Dubai", image: "/dubai-img.jpg" },
+              { name: "London", image: "/london.jpg" },
+              { name: "New York", image: "/newyork.jpg"},
+              { name: "Tokyo", image: "/tokyo.jpg" },
             ].map((destination) => (
               <div key={destination.name} className="group relative overflow-hidden rounded-lg">
                 <div
