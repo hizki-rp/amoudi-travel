@@ -4,7 +4,10 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import WhatsappLive from "@/components/WhatsappLive";
 import "./globals.css"
+
+import { ReactLenis } from "@/utils/lenis";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -16,9 +19,12 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Amoudi Business Group",
+  title: {
+    default: "Amoudi Business Group",
+    template: "%s - Amoudi Business Group",
+  },
   description: "Your trusted partner for travel and business solutions",
-    generator: 'v0.dev'
+  
 }
 
 export default function RootLayout({
@@ -28,19 +34,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <ReactLenis root>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+           
+            <main className=" relative overflow-hidden mx-auto">
+              {children}
+              <WhatsappLive />
+            </main>
             <Footer />
           </div>
         </ThemeProvider>
       </body>
+      </ReactLenis>
     </html>
   )
 }
 
 
 
-import './globals.css'
+
+

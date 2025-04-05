@@ -51,7 +51,7 @@ export default function page() {
     formData.append("bookingType", bookingType)
     
     // Submit to Formspree
-    handleSubmit(e)
+    handleSubmit(e);
   }
 
   return (

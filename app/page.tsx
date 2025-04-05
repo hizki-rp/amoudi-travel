@@ -124,20 +124,20 @@ export default function HomePage() {
           <div className="grid gap-8 md:grid-cols-3">
             {[
               {
-                name: "Sarah Johnson",
-                location: "London, UK",
+                name: "Adam",
+                location: "Addis Ababa",
                 quote:
                   "The service was exceptional. My family and I had a wonderful vacation thanks to Amoudi Business Group.",
               },
               {
-                name: "Mohammed Al-Farsi",
-                location: "Dubai, UAE",
+                name: "Birhanu",
+                location: "UAE",
                 quote:
                   "Professional, reliable, and attentive to every detail. I highly recommend their services for business travel.",
               },
               {
-                name: "Jessica Chen",
-                location: "New York, USA",
+                name: "Seid",
+                location: "Addis Ababa",
                 quote:
                   "From booking to return, everything was perfectly arranged. Will definitely use their services again.",
               },
